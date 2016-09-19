@@ -1,4 +1,4 @@
-function Stopwatch(elem) {
+function Stopwatch() {
 	var time = 0;
   var interval;
   var offset;
@@ -6,7 +6,7 @@ function Stopwatch(elem) {
   function update() {
   	time += delta(); // added to time for each update
 		var formattedTime = timeFormatter(time);
-		elem.textContent = formattedTime;
+		console.log(formattedTime);
   }
 
   function delta() {
@@ -33,7 +33,7 @@ function Stopwatch(elem) {
 		}
 
 		while (milliseconds.length < 3) {
-			seconds = '0' + milliseconds;
+			milliseconds = '0' + milliseconds;
 		}
 
 		return minutes + ' : ' + seconds + ' . ' + milliseconds;
@@ -43,7 +43,7 @@ function Stopwatch(elem) {
 
   this.start = function() {
   	if (!this.isOn) {
-	    interview = setInterval(update, 10); //updates every 10 milliseconds
+	    interval = setInterval(update, 10); //updates every 10 milliseconds
     	offset = Date.now();
     	this.isOn = true;
     }
