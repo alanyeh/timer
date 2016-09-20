@@ -1,7 +1,7 @@
 function Stopwatch(elem) {
 	var time = 0;
   var interval;
-  var offset;
+  var offset = new Date(Date.parse(new Date()) + 30 * 60 * 1000);;
 
   function update() {
 		if (this.isOn) {
@@ -9,13 +9,13 @@ function Stopwatch(elem) {
 		}
 		var formattedTime = timeFormatter(time);
 		elem.textContent = formattedTime;
-		console.log(formattedTime);
   }
 
   function delta() {
   	var now = Date.now();
 		// console.log(now);
     var timePassed = offset - now;
+		console.log(now);
     offset = now; // calculates the new now number from about
     return timePassed;
   }
@@ -49,7 +49,6 @@ function Stopwatch(elem) {
   this.start = function() {
   	if (!this.isOn) {
 	    interval = setInterval(update.bind(this), 10); //updates every 10 milliseconds
-    	offset = new Date(Date.parse(new Date()) + 30 * 60 * 1000);
     	this.isOn = true;
     }
   };
@@ -59,6 +58,7 @@ function Stopwatch(elem) {
     	clearInterval(interval);
       interval = null;
       this.isOn = false;
+			console.log(stop);
     }
   };
 
