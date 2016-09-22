@@ -1,7 +1,7 @@
 function Stopwatch(elem) {
 	var time = 0;
   var interval;
-  var offset = new Date(Date.parse(new Date()) + 30 * 60 * 1000);;
+  var offset = new Date(Date.parse(new Date()) + 30 * 60 * 1000);
 
   function update() {
 		if (this.isOn) {
@@ -13,36 +13,25 @@ function Stopwatch(elem) {
 
   function delta() {
   	var now = Date.now();
-		// console.log(now);
     var timePassed = offset - now;
-		console.log(now);
     offset = now; // calculates the new now number from about
     return timePassed;
   }
 
-  function timeFormatter(timeInMilliseconds) {
-		var time = new Date((timeInMilliseconds)); // we can now get a bunch of date methods
-		// console.log(time);
-		var minutes = time.getMinutes().toString();
-		var seconds = time.getSeconds().toString();
-		var milliseconds = time.getMilliseconds().toString();
+  function timeFormatter() {
+		var timer = duration, minutes, seconds;
+		setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
 
-		// Keep format of timer
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+			}, 1000);
 
-		if (minutes.length < 2 ) {
-			minutes = '0' + minutes;
-		}
-
-		if (seconds.length < 2 ) {
-			seconds = '0' + seconds;
-		}
-
-		while (milliseconds.length < 3) {
-			milliseconds = '0' + milliseconds;
-		}
-
-		return minutes + ' : ' + seconds + ' . ' + milliseconds;
+			return minutes + ':' + seconds;
   }
+
+
 
   this.isOn = false; //start with setting interveral to stop
 
@@ -58,9 +47,18 @@ function Stopwatch(elem) {
     	clearInterval(interval);
       interval = null;
       this.isOn = false;
-			console.log(stop);
     }
   };
+
+	this.increment = function() {
+		if(!this.isOn) {
+			time += delta();
+			var incrementTime = new Date(time); // we can now get a bunch of date methods
+			var minutes = (time.getMinutes().toString()) + 1000;
+			elem.textContent = incrementTime;
+			console.log(minutes);
+		}
+	};
 
   this.reset = function() {
 		this.stop();

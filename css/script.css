@@ -5,12 +5,12 @@ body {
 
 #timer {
   font-family: lato;
-  font-size: 100px;
+  font-size: 50px;
 }
 
 #toggle {
 	border-radius: 50%;
-	width: 200px;
-	height: 200px;
+	width: 300px;
+	height: 300px;
 	border: 0;
 }
