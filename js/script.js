@@ -1,70 +1,68 @@
-function Stopwatch(elem) {
-	var time = 0;
-  var interval;
-  var offset;
+var display = document.getElementById('timer');
+var min = 5;
+var time = 60 * min;
+var toggleBtn = document.getElementById('toggle');
+var resetBtn = document.getElementById('reset');
+var plusBtn = document.getElementById('add');
+var minusBtn = document.getElementById('minus');
+var timerText = document.getElementById('timerText');
 
-  function update() {
-		if (this.isOn) {
-			time += delta(); // added to time for each update
+var isOn = false;
+
+plusBtn.addEventListener('click', function() {
+	if (isOn == false) {
+		min++;
+		time = 60 * min;
+		min = min < 10 ? "0" + min : min; //add zero before number if less than 2
+		updateDisplay();
+	}
+});
+
+minusBtn.addEventListener('click', function() {
+	if (min > 0) {
+		if (isOn == false) {
+			min--;
+			time = 60 * min;
+			min = min < 10 ? "0" + min : min; //add zero before number if less than 2
+			updateDisplay();
 		}
-		var formattedTime = timeFormatter(time);
-		elem.textContent = formattedTime;
-		console.log(formattedTime);
-  }
+	}
+});
 
-  function delta() {
-  	var now = Date.now();
-		// console.log(now);
-    var timePassed = offset - now;
-    offset = now; // calculates the new now number from about
-    return timePassed;
-  }
+// resetBtn.addEventListener('click', function() {
+// });
+//
+// pauseBtn.addEventListener('click', function() {
+// });
 
-  function timeFormatter(timeInMilliseconds) {
-		var time = new Date((timeInMilliseconds)); // we can now get a bunch of date methods
-		// console.log(time);
-		var minutes = time.getMinutes().toString();
-		var seconds = time.getSeconds().toString();
-		var milliseconds = time.getMilliseconds().toString();
+function startTimer(duration, display) {
+    var t = duration;
+    setInterval(function () {
+        minutes = parseInt(t / 60)
+        seconds = parseInt(t % 60);
 
-		// Keep format of timer
+        minutes = minutes < 10 ? "0" + minutes : minutes; //add zero before number if less than 2
+        seconds = seconds < 10 ? "0" + seconds : seconds; //add zero before if less than 2
 
-		if (minutes.length < 2 ) {
-			minutes = '0' + minutes;
-		}
+        display.textContent = minutes + " : " + seconds;
 
-		if (seconds.length < 2 ) {
-			seconds = '0' + seconds;
-		}
-
-		while (milliseconds.length < 3) {
-			milliseconds = '0' + milliseconds;
-		}
-
-		return minutes + ' : ' + seconds + ' . ' + milliseconds;
-  }
-
-  this.isOn = false; //start with setting interveral to stop
-
-  this.start = function() {
-  	if (!this.isOn) {
-	    interval = setInterval(update.bind(this), 10); //updates every 10 milliseconds
-    	offset = new Date(Date.parse(new Date()) + 30 * 60 * 1000);
-    	this.isOn = true;
-    }
-  };
-
-  this.stop = function() {
-  	if(this.isOn) {
-    	clearInterval(interval);
-      interval = null;
-      this.isOn = false;
-    }
-  };
-
-  this.reset = function() {
-		this.stop();
-		time = 0;
-		update();
-	};
+        if (--t< 0) {
+            t = duration;
+        }
+    }, 1000);
 }
+
+function updateDisplay() {
+	display.textContent = min + " : 00";
+};
+
+toggleBtn.addEventListener('click', function() {
+		if (!isOn) {
+    	startTimer(time, display);
+			isOn = true;
+			toggleBtn.textContent = 'Stop';
+		}
+		else {
+			toggleBtn.textContent = 'Start';
+		}
+});
