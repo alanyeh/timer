@@ -1,16 +1,55 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
 body {
+	font-family: 'avenir', sans-serif;
   text-align: center;
-  margin-top: 300px;
+	width: 356px;
+	height: 700px;
+	font-weight: 100;
+	font-size: 12px;
+	color: #FFF;
+}
+
+h1 {
+	font-weight: 100;
+	padding-top: 20px;
+}
+
+li {
+	display: inline-block;
+
+}
+
+.container {
+	padding-bottom: 400px;
+	background-color: #2f2444;
 }
 
 #timer {
-  font-family: lato;
   font-size: 50px;
+	color: #FFF;
 }
 
 #toggle {
+	margin-top: 25px;
 	border-radius: 50%;
-	width: 300px;
-	height: 300px;
+	width: 200px;
+	height: 200px;
 	border: 0;
+	opacity: 0.5;
+}
+
+.buttons {
+	padding-top: 25px;
+}
+
+button:focus {
+	outline:0;
+}
+
+button:hover {
+	cursor: pointer;
 }

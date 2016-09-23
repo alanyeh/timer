@@ -5,6 +5,7 @@ var toggleBtn = document.getElementById('toggle');
 var resetBtn = document.getElementById('reset');
 var plusBtn = document.getElementById('add');
 var minusBtn = document.getElementById('minus');
+var timerText = document.getElementById('timerText');
 
 var isOn = false;
 
@@ -56,6 +57,12 @@ function updateDisplay() {
 };
 
 toggleBtn.addEventListener('click', function() {
-    startTimer(time, display);
-		isOn = true;
+		if (!isOn) {
+    	startTimer(time, display);
+			isOn = true;
+			toggleBtn.textContent = 'Stop';
+		}
+		else {
+			toggleBtn.textContent = 'Start';
+		}
 });
