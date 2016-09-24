@@ -37,6 +37,7 @@ minusBtn.addEventListener('click', function() {
 
 function startTimer(duration, display) {
     var t = duration;
+		if (!not)
     setInterval(function () {
         minutes = parseInt(t / 60)
         seconds = parseInt(t % 60);
@@ -50,7 +51,12 @@ function startTimer(duration, display) {
             t = duration;
         }
     }, 1000);
+
+		function pause() {
+			clearInterval();
+		}
 }
+
 
 function updateDisplay() {
 	display.textContent = min + " : 00";
