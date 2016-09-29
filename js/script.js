@@ -6,7 +6,7 @@ var resetBtn = document.getElementById('reset');
 var plusBtn = document.getElementById('add');
 var minusBtn = document.getElementById('minus');
 var timerText = document.getElementById('timerText');
-
+var timerOn;
 var isOn = false;
 
 plusBtn.addEventListener('click', function() {
@@ -20,7 +20,7 @@ plusBtn.addEventListener('click', function() {
 
 minusBtn.addEventListener('click', function() {
 	if (min > 0) {
-		if (isOn == false) {
+		if (!isOn) {
 			min--;
 			time = 60 * min;
 			min = min < 10 ? "0" + min : min; //add zero before number if less than 2
@@ -29,15 +29,21 @@ minusBtn.addEventListener('click', function() {
 	}
 });
 
-// resetBtn.addEventListener('click', function() {
-// });
-//
-// pauseBtn.addEventListener('click', function() {
-// });
+toggleBtn.addEventListener('dblclick', function() {
+	if(isOn) {
+		clearInterval(timerOn);
+		console.log('work');
+		isOn = false;
+	}
+	else {
+		resumeTimer();
+	}
+});
 
 function startTimer(duration, display) {
     var t = duration;
-    setInterval(function () {
+		isOn = true;
+    timerOn = setInterval(function () {
         minutes = parseInt(t / 60)
         seconds = parseInt(t % 60);
 
@@ -59,7 +65,6 @@ function updateDisplay() {
 toggleBtn.addEventListener('click', function() {
 		if (!isOn) {
     	startTimer(time, display);
-			isOn = true;
 			toggleBtn.textContent = 'Stop';
 		}
 		else {
