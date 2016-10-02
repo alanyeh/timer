@@ -13,6 +13,10 @@ body {
 	color: #FFF;
 }
 
+.selected {
+	color: #F84982;
+}
+
 h1 {
 	font-weight: 100;
 	padding-top: 20px;
@@ -24,15 +28,18 @@ li {
 }
 
 .container {
-	padding-bottom: 400px;
 	background-color: #2f2444;
+	height: 667px;
+	width: 365px;
 }
 
 #timer {
   font-size: 50px;
 	color: #FFF;
 }
-
+.times {
+	margin: 30px 0;
+}
 #toggle {
 	margin-top: 25px;
 	border-radius: 50%;
@@ -40,16 +47,27 @@ li {
 	height: 200px;
 	border: 0;
 	opacity: 0.5;
+	cursor: pointer;
+}
+#timerDot {
+	background-color: #189cc4;
+	border-radius: 50%;
+	width: 7px;
+	height: 7px;
+	margin: auto;
+}
+.button {
+	display: inline-block;
+	margin-top: 25px;
+	background-color: #827b8e;
+	width: 20px;
+	font-size: 15px;
 }
 
-.buttons {
-	padding-top: 25px;
-}
-
-button:focus {
+.button:focus {
 	outline:0;
 }
 
-button:hover {
+.button:hover {
 	cursor: pointer;
 }
