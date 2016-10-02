@@ -2,26 +2,27 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Timer</title>
+		<title>Pomodoro Timer</title>
 		<link rel="stylesheet" type="text/css" href="css/script.css">
 	</head>
 	<body>
 		<div class="container">
-			<h1 class="title"> Timer </h1>
-			<div id="timer">05 : 00 </div>
+			<h1 class="title">Pomodoro Timer </h1>
 			<ul class="times">
-				<li>5 min</li>
-				<li>10 min</li>
-				<li>30 min</li>
+				<li id="5">5 min</li>
+				<li id="10">10 min</li>
+				<li id="30" class="selected">30 min</li>
 			</ul>
+			<div id="timer">30 : 00</div>
 		  <button id="toggle">
-				<p id="timerText">Start</p>
+				<div id="timerDot"></div>
+				<!-- <p id="timerText">Start</p> -->
 			</button>
 
 		  <!-- <button id="reset">Reset</button> -->
 			<div class="buttons">
-				<button id="add">Add</button>
-				<button id="minus">minus</button>
+				<div class="button" id="add">+</div>
+				<div class="button" id="minus">-</div>
 			</div>
 			<script src="js/script.js"></script>
 			<script type="text/javascript" src="js/main.js"> </script>
