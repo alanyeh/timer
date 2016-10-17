@@ -64,12 +64,10 @@ function updateDisplay() {
 toggleBtn.addEventListener('click', function() {
 	var toggleColor = document.getElementById('timerDot');
 		if (isOn == false) {
-			console.log('off');
 			startTimer(time, display);
 			toggleColor.style.backgroundColor = '#F84982';
 		}
 		else if(isOn == true) {
-			console.log('work');
 			clearInterval(timerInterval);
 			toggleColor.style.backgroundColor = '#189cc4';
 		}
