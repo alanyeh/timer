@@ -1,6 +1,6 @@
 var display = document.getElementById('timer');
 var min = 30;
-var time = 60 * min;
+var time = 3600 * min;
 var toggleBtn = document.getElementById('toggle');
 var resetBtn = document.getElementById('reset');
 var plusBtn = document.getElementById('add');
@@ -32,30 +32,26 @@ minusBtn.addEventListener('click', function() {
 	}
 });
 
-// resetBtn.addEventListener('click', function() {
-// });
-//
-// pauseBtn.addEventListener('click', function() {
-// });
-
 function startTimer(duration, display) {
 		var t = duration;
 		if (state != 1) {
 			timerInterval = setInterval(function () {
-					minutes = parseInt(t / 60)
-					seconds = parseInt(t % 60);
+					minutes = parseInt(t / 3600);
+					seconds = parseInt((t % 6000) / 100);
+					milliseconds = parseInt(t % 60);
 
 					minutes = minutes < 10 ? "0" + minutes : minutes; //add zero before number if less than 2
 					seconds = seconds < 10 ? "0" + seconds : seconds; //add zero before if less than 2
+					milliseconds = milliseconds < 10 ? "0" + milliseconds : milliseconds; //add zero before if less than 2
 
-					display.textContent = minutes + " : " + seconds;
+					display.textContent = minutes + " : " + seconds + " : " + milliseconds;
 					resumeTime = ((minutes * 60) + (seconds % 60));
+					state = 1;
 
 					if (--t< 0) {
 							t = duration;
 					}
-			}, 1000);
-			state = 1;
+			}, 10);
 			return resumeTime;
 		}
 }
