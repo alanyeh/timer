@@ -1,21 +1,24 @@
-var display = document.getElementById('timer');
 var min = 30;
-var time = 3600 * min;
+var time = 6000 * min;
+var state = 0; //  0 = idle, 1 = running, 2 = paused, 3= resumed
+var timerInterval;
+var resumeTime;
+
+
+//DOM
+var display = document.getElementById('timer');
 var toggleBtn = document.getElementById('toggle');
 var resetBtn = document.getElementById('reset');
 var plusBtn = document.getElementById('add');
 var minusBtn = document.getElementById('minus');
 var timerText = document.getElementById('timerText');
-var state = 0; //  0 = idle, 1 = running, 2 = paused, 3= resumed
-var timerInterval;
-var resumeTime;
 var toggleColor = document.getElementById('timerDot');
 
 
 plusBtn.addEventListener('click', function() {
 	if (state == 0) {
 		min++;
-		time = 60 * min;
+		time = 6000 * min;
 		min = min < 10 ? "0" + min : min; //add zero before number if less than 2
 		updateDisplay();
 	}
@@ -25,7 +28,7 @@ minusBtn.addEventListener('click', function() {
 	if (min > 0) {
 		if (state == 0) {
 			min--;
-			time = 60 * min;
+			time = 6000 * min;
 			min = min < 10 ? "0" + min : min; //add zero before number if less than 2
 			updateDisplay();
 		}
@@ -36,7 +39,7 @@ function startTimer(duration, display) {
 		var t = duration;
 		if (state != 1) {
 			timerInterval = setInterval(function () {
-					minutes = parseInt(t / 3600);
+					minutes = parseInt(t / 6000);
 					seconds = parseInt((t % 6000) / 100);
 					milliseconds = parseInt(t % 60);
 
@@ -45,7 +48,7 @@ function startTimer(duration, display) {
 					milliseconds = milliseconds < 10 ? "0" + milliseconds : milliseconds; //add zero before if less than 2
 
 					display.textContent = minutes + " : " + seconds + " : " + milliseconds;
-					resumeTime = ((minutes * 60) + (seconds % 60));
+					resumeTime = ((minutes * 6000) + (seconds * 100) + (milliseconds)) ; //revert time back to original
 					state = 1;
 
 					if (--t< 0) {
@@ -58,7 +61,7 @@ function startTimer(duration, display) {
 
 
 function updateDisplay() {
-	display.textContent = min + " : 00";
+	display.textContent = min + " : 00 : 00";
 };
 
 toggleBtn.addEventListener('click', function() {
@@ -80,14 +83,17 @@ toggleBtn.addEventListener('click', function() {
 
 toggleBtn.addEventListener('dblclick', function(){
 	clearInterval(timerInterval);
-	time = 60 * min;
-	minutes = parseInt(time / 60)
-	seconds = parseInt(time % 60);
+
+	time = 6000 * min;
+	minutes = parseInt(time / 6000);
+	seconds = parseInt((time % 6000) / 100);
+	milliseconds = parseInt(time % 60);
 
 	minutes = minutes < 10 ? "0" + minutes : minutes; //add zero before number if less than 2
 	seconds = seconds < 10 ? "0" + seconds : seconds; //add zero before if less than 2
+	milliseconds = milliseconds < 10 ? "0" + milliseconds : milliseconds; //add zero before if less than 2
 
-	display.textContent = minutes + " : " + seconds;
+	display.textContent = minutes + " : " + seconds + " : " + milliseconds;
 
 	state = 0;
 	toggleColor.style.backgroundColor = '#F84982';
