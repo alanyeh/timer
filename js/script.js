@@ -4,7 +4,6 @@ var state = 0; //  0 = idle, 1 = running, 2 = paused, 3= resumed
 var timerInterval;
 var resumeTime;
 
-
 //DOM
 var display = document.getElementById('timer');
 var toggleBtn = document.getElementById('toggle');
@@ -13,7 +12,27 @@ var plusBtn = document.getElementById('add');
 var minusBtn = document.getElementById('minus');
 var timerText = document.getElementById('timerText');
 var toggleColor = document.getElementById('timerDot');
+var fiveBtn = document.getElementById('fiveBtn');
+var tenBtn = document.getElementById('tenBtn');
+var thirtyBtn = document.getElementById('thirtyBtn');
 
+fiveBtn.addEventListener('click', function() {
+	if (state == 0) {
+		time = 6000 * 10;
+		updateDisplay();
+	}
+});
+
+tenBtn.addEventListener('click', function() {
+	if (state == 0) {
+		console.log('ten');
+		tenBtn.className += " selected";
+
+		time = 6000 * 10;
+		min = min < 10 ? "0" + min : min; //add zero before number if less than 2
+		updateDisplay();
+	}
+});
 
 plusBtn.addEventListener('click', function() {
 	if (state == 0) {
@@ -40,8 +59,8 @@ function startTimer(duration, display) {
 		if (state != 1) {
 			timerInterval = setInterval(function () {
 					minutes = parseInt(t / 6000);
-					seconds = parseInt((t % 6000) / 100);
-					milliseconds = parseInt(t % 60);
+					seconds = parseInt(Math.floor(t % 6000) / 100);
+					milliseconds = parseInt(Math.floor(t % 60));
 
 					minutes = minutes < 10 ? "0" + minutes : minutes; //add zero before number if less than 2
 					seconds = seconds < 10 ? "0" + seconds : seconds; //add zero before if less than 2
