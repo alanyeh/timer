@@ -16,20 +16,42 @@ var fiveBtn = document.getElementById('fiveBtn');
 var tenBtn = document.getElementById('tenBtn');
 var thirtyBtn = document.getElementById('thirtyBtn');
 
+function select(item) {
+	if (state == 0) {
+    // get all 'a' elements
+    var a = document.getElementsByClassName('timeBtn');
+    // loop through all 'a' elements
+    for (i = 0; i < a.length; i++) {
+        // Remove the class 'active' if it exists
+        a[i].classList.remove('selected')
+    }
+    // add 'active' classs to the element that was clicked
+    item.classList.add('selected');
+	}
+}
+
 fiveBtn.addEventListener('click', function() {
 	if (state == 0) {
-		time = 6000 * 10;
+		console.log('fiveBtn')
+		min = 5;  //add zero before number if less than 2
+		time = 6000 * min;
+		min = min < 10 ? "0" + min : min; //add zero before number if less than 2
 		updateDisplay();
 	}
 });
 
 tenBtn.addEventListener('click', function() {
 	if (state == 0) {
-		console.log('ten');
-		tenBtn.className += " selected";
+		min = 10;  //add zero before number if less than 2
+		time = 6000 * min;
+		updateDisplay();
+	}
+});
 
-		time = 6000 * 10;
-		min = min < 10 ? "0" + min : min; //add zero before number if less than 2
+thirtyBtn.addEventListener('click', function() {
+	if (state == 0) {
+		min = 30;  //add zero before number if less than 2
+		time = 6000 * min;
 		updateDisplay();
 	}
 });
@@ -38,7 +60,6 @@ plusBtn.addEventListener('click', function() {
 	if (state == 0) {
 		min++;
 		time = 6000 * min;
-		min = min < 10 ? "0" + min : min; //add zero before number if less than 2
 		updateDisplay();
 	}
 });
